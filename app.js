@@ -6,6 +6,8 @@
   var GOOGLE_MAPS_API_KEY = 'AIzaSyAFvMwd8d-YI-3x-wS64O6XzHL62fqysI4';
   var GOOGLE_MAPS_API_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
+  var icons = new Skycons({"color": "black"});
+  
   // This function returns a promise that will resolve with an object of lat/lng coordinates
   function getCoordinatesForCity(cityName) {
     // This is an ES6 template string, much better than verbose string concatenation...
@@ -34,15 +36,17 @@
     fetch(url)
     .then(response => response.json())
     .then(data => {
-console.log(JSON.stringify(data, null, 4))
-return data.currently
-})
+    return data.currently
+    })
   );
 }
   var app = document.querySelector('#app');
   var cityForm = app.querySelector('.city-form');
   var cityInput = cityForm.querySelector('.city-input');
   var cityWeather = app.querySelector('.city-weather');
+
+  var cloud;
+  var sky;
 
   cityForm.addEventListener('submit', function(event) { // this line changes
     cityWeather.innerText = 'Loading...';    
@@ -52,7 +56,18 @@ return data.currently
     getCoordinatesForCity(city) // get the coordinates for the input city
     .then(getCurrentWeather) // get the weather for those coordinates
     .then(function(weather) {
-      cityWeather.innerText = 'Current temperature: ' + Math.round(weather.temperature) + '\nFeels like: ' + Math.round(weather.apparentTemperature) +'\nSummary: ' + weather.summary + '\nChance of rain: ' + (weather.precipProbability * 100) + '%'+ '\n' + weather.icon;
+      sky = weather.icon.replace('-', '_').toUpperCase();
+      icons.set(weather.icon, Skycons[sky]);
+        cityWeather.innerText = 
+        'Current temperature: ' + Math.round(weather.temperature) + 
+        '\nFeels like: ' + Math.round(weather.apparentTemperature) + 
+        '\nSummary: ' + weather.summary + 
+        '\nChance of rain: ' + (weather.precipProbability * 100) + '%';      
     });
   });
+  icons.play();
 })();
+
+
+
+//weather.icon;

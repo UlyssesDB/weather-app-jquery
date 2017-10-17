@@ -1,9 +1,26 @@
 body {
+  display: flex;
+  justify-content: center;
   font-family: 'Times New Roman', Times, serif;
   font-size: 16px;
   color: black;
   background-color: white;
 }
+#app {
+  border-style: dashed;
+  border-width: 1px;
+  border-color: red;
+  border-radius: 10px;
+  background-color: lightblue;
+}
 .city-weather {
   color: black;
+}
+.icons {
+  
+}
+figure {
+	margin: 5em auto;
+	width: 350px;
+	height: 150px;
 }
