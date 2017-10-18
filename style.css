@@ -15,6 +15,7 @@ body {
 }
 .city-weather {
   color: black;
+  white-space: pre;  
 }
 .icons {
   
